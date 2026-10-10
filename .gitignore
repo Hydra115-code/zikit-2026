@@ -13,6 +13,8 @@ htmlcov/
 
 # Local evidence and working material are intentionally not distributed.
 AGENTS.md
+.venv
+.codex
 docs/
 data/*
 !data/challenge-phase-3-logs/
