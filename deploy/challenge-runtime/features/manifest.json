@@ -1,0 +1,31 @@
+{
+  "feature_files": [
+    {
+      "path": "features/corrida_09.parquet",
+      "rows": 9200,
+      "run_id": "corrida_09",
+      "sha256": "3d502adf9b716e29ec2448af2b66a9d0c502822549d21b2f33822af4f93ba0a0"
+    }
+  ],
+  "feature_version": "challenge-kaiku-features-v2",
+  "log_events": {
+    "path": "log-events.parquet",
+    "raw_messages_stored": false,
+    "rows": 1200,
+    "sha256": "8648b391d784300dfabdc69e4b2c94626606c5109cc71acf72a56fbc490a5d29"
+  },
+  "logs": [],
+  "report": {
+    "path": "feature-report.json",
+    "sha256": "db7241e1454b7f2859d2e49807bbf84b93af70151ab1dd624565601e480622a6"
+  },
+  "scope": {
+    "kaiku_only": true,
+    "target_tenant": "kaiku"
+  },
+  "source": {
+    "full_feature_manifest_sha256": "1aec9acffa66c0ecc95d03751d4dcbf369b0cc198a270377b3240f899825d0b2",
+    "full_feature_report_sha256": "d251db000556d9010295b666fb1e49f19c9ab9aad62e30778668f80156c26a0b",
+    "subset_reason": "guided deployment replay only"
+  }
+}

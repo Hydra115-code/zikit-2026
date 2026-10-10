@@ -1,0 +1,674 @@
+{
+  "feature_files": [
+    {
+      "path": "features/corrida_01.parquet",
+      "rows": 9200,
+      "run_id": "corrida_01",
+      "sha256": "6198b1bfc13108a0b8f1a132b58d70326f7adba9ab0bdd22798f24d95e731a2a"
+    },
+    {
+      "path": "features/corrida_02.parquet",
+      "rows": 9200,
+      "run_id": "corrida_02",
+      "sha256": "7b439120a4692cfd6d79360af970ba98ae6234cd7f1a0fdfea98e348a2698434"
+    },
+    {
+      "path": "features/corrida_03.parquet",
+      "rows": 9200,
+      "run_id": "corrida_03",
+      "sha256": "37d871cdb5e2ca661c7aadc8eaae6828dace69e71757c606348da5cff048219c"
+    },
+    {
+      "path": "features/corrida_04.parquet",
+      "rows": 9200,
+      "run_id": "corrida_04",
+      "sha256": "70f18a2185ca15b9e9a7debfb55bfe16ea24ae8f64ec36d543d8ae3bc9c5317d"
+    },
+    {
+      "path": "features/corrida_05.parquet",
+      "rows": 9200,
+      "run_id": "corrida_05",
+      "sha256": "e424aa12e2a1040320ade10c3cb870e899489630a058040d37d8bee1912d6268"
+    },
+    {
+      "path": "features/corrida_06.parquet",
+      "rows": 9200,
+      "run_id": "corrida_06",
+      "sha256": "ea3697d6894e4febc053c8127e8c57560d1619072a6c8a29e85408dc58343208"
+    },
+    {
+      "path": "features/corrida_07.parquet",
+      "rows": 9200,
+      "run_id": "corrida_07",
+      "sha256": "7f88b6495e8a341c2b9c656234dc713083073a597ed24e32c4a77361ef19e47a"
+    },
+    {
+      "path": "features/corrida_08.parquet",
+      "rows": 9200,
+      "run_id": "corrida_08",
+      "sha256": "1a627cf67477fb8e156986a3317445e9db7a9d36b376c0aaa3a066e8442c74e5"
+    },
+    {
+      "path": "features/corrida_09.parquet",
+      "rows": 9200,
+      "run_id": "corrida_09",
+      "sha256": "3d502adf9b716e29ec2448af2b66a9d0c502822549d21b2f33822af4f93ba0a0"
+    },
+    {
+      "path": "features/corrida_10.parquet",
+      "rows": 9200,
+      "run_id": "corrida_10",
+      "sha256": "0ab34406831b59c848ec487f70401098af1e8917e08919a0ecc5f57de7d35cf5"
+    },
+    {
+      "path": "features/corrida_11.parquet",
+      "rows": 9200,
+      "run_id": "corrida_11",
+      "sha256": "2fbedf335f5db269c1fd41ab58b620acbcfbae32448ccaf5d0adde700fcb63b1"
+    },
+    {
+      "path": "features/corrida_12.parquet",
+      "rows": 9200,
+      "run_id": "corrida_12",
+      "sha256": "784e13800d755a13c2f588b2919245ffc7a3b3a7da8b9c8444775fc24b6f9737"
+    },
+    {
+      "path": "features/corrida_13.parquet",
+      "rows": 9200,
+      "run_id": "corrida_13",
+      "sha256": "fb1254d9a7af1f12a21e1e1a3238f1f5649852773b23f151b56b2eded1b28470"
+    },
+    {
+      "path": "features/corrida_14.parquet",
+      "rows": 9200,
+      "run_id": "corrida_14",
+      "sha256": "d2e842819f3823b3773026485cf4baa19acf1172473e6a0f0bd4f667a5d167f5"
+    },
+    {
+      "path": "features/corrida_15.parquet",
+      "rows": 9200,
+      "run_id": "corrida_15",
+      "sha256": "01fc6d007fc8750218182e3c5d51d9f916156f49105953af36c57feaafccd6f0"
+    },
+    {
+      "path": "features/corrida_16.parquet",
+      "rows": 9200,
+      "run_id": "corrida_16",
+      "sha256": "36e4590a8fe0174e9497a538e489deb6efbbdfa4f275c9da5787af7cc8a1791b"
+    },
+    {
+      "path": "features/corrida_17.parquet",
+      "rows": 9200,
+      "run_id": "corrida_17",
+      "sha256": "e40fa6bc407749fc2633d4d567472c112af4131e154ba36c3e8a581e1b0384c8"
+    },
+    {
+      "path": "features/corrida_18.parquet",
+      "rows": 9200,
+      "run_id": "corrida_18",
+      "sha256": "5f24a7a394924fd7b43fbb4631dea4741a49fd2b7e2d48686e3e4498c693b221"
+    },
+    {
+      "path": "features/corrida_19.parquet",
+      "rows": 9200,
+      "run_id": "corrida_19",
+      "sha256": "37dc9a44530e60121e087f1d557e11df5e95884561298b888329fc75129c27f1"
+    },
+    {
+      "path": "features/corrida_20.parquet",
+      "rows": 9200,
+      "run_id": "corrida_20",
+      "sha256": "64717c102693e8e1843f6289beb67df59e39e622a5d4f1daef2b0d3047d18f27"
+    },
+    {
+      "path": "features/corrida_21.parquet",
+      "rows": 9200,
+      "run_id": "corrida_21",
+      "sha256": "53caa57c6e3c4adce0263866a5ec1b9e854b149984cd2930ba19a21dfb393a8c"
+    },
+    {
+      "path": "features/corrida_22.parquet",
+      "rows": 9200,
+      "run_id": "corrida_22",
+      "sha256": "f8547b3156f9a7c486b28e0323ec616b2f5cf26cefff43098a751df122139604"
+    },
+    {
+      "path": "features/corrida_23.parquet",
+      "rows": 9200,
+      "run_id": "corrida_23",
+      "sha256": "38e970d08419f77fc9d4766205cd4d5cde69b9b2581660d61a8e937e3d32dc26"
+    },
+    {
+      "path": "features/corrida_24.parquet",
+      "rows": 9200,
+      "run_id": "corrida_24",
+      "sha256": "fa173fa1ba5c495ff26b8630655840f53c99bd99ec77349c574360d3ec336d41"
+    },
+    {
+      "path": "features/corrida_25.parquet",
+      "rows": 9200,
+      "run_id": "corrida_25",
+      "sha256": "12639df387de135b74751cce1d7f6dac2e82aeb2486a905a3628fdccd10b6eda"
+    },
+    {
+      "path": "features/corrida_26.parquet",
+      "rows": 9200,
+      "run_id": "corrida_26",
+      "sha256": "be51297d4b491a61d20a28eec8f45e6b84bbc41851baac716da4e816166bbd14"
+    },
+    {
+      "path": "features/corrida_27.parquet",
+      "rows": 9200,
+      "run_id": "corrida_27",
+      "sha256": "1850fbc9883d143fb5e301af7e3f792cc17b553f695b483e22d7dbeacca0e621"
+    },
+    {
+      "path": "features/corrida_28.parquet",
+      "rows": 9200,
+      "run_id": "corrida_28",
+      "sha256": "64030213e93310090604f2871e585426b96d53a348b3ef546063a906502ef475"
+    },
+    {
+      "path": "features/corrida_29.parquet",
+      "rows": 9200,
+      "run_id": "corrida_29",
+      "sha256": "57e52ff63526a18e8104b11993227a56ebac46fa89cac2edf655d78e59aade0d"
+    },
+    {
+      "path": "features/corrida_30.parquet",
+      "rows": 9200,
+      "run_id": "corrida_30",
+      "sha256": "5cbd46f501d57f9b08342a687f6bbc4b14eb2a0247e73d7d8f45b935065477f7"
+    },
+    {
+      "path": "features/corrida_31.parquet",
+      "rows": 9200,
+      "run_id": "corrida_31",
+      "sha256": "7c31b48f1ecf3951b0c3dc7d0b47bd519ca0b74d91a31f2f9c430225d4ca9e43"
+    },
+    {
+      "path": "features/corrida_32.parquet",
+      "rows": 9200,
+      "run_id": "corrida_32",
+      "sha256": "e41f0e8f97ec075aff40b72ac834f5048449d55dfde62dcd850d447224b14308"
+    },
+    {
+      "path": "features/corrida_33.parquet",
+      "rows": 9200,
+      "run_id": "corrida_33",
+      "sha256": "0cda5c68c71c92af5412c9a1dbaf26ff2840d642f06b7f9c8792e413b579e42f"
+    },
+    {
+      "path": "features/corrida_34.parquet",
+      "rows": 9200,
+      "run_id": "corrida_34",
+      "sha256": "6e08ac1fe0fa942ef6e4eb7fe39a7486831bda8407e00d3c8ef7812223e23392"
+    },
+    {
+      "path": "features/corrida_35.parquet",
+      "rows": 9200,
+      "run_id": "corrida_35",
+      "sha256": "001ecb6d3697b91153fc9877d76fc66a58375ed5adc3eef8f8f21b0f48eed057"
+    },
+    {
+      "path": "features/corrida_36.parquet",
+      "rows": 9200,
+      "run_id": "corrida_36",
+      "sha256": "950420e469ad63ace3de452c9ef298311690f9f740c9a5746a34518e50186205"
+    },
+    {
+      "path": "features/corrida_37.parquet",
+      "rows": 9200,
+      "run_id": "corrida_37",
+      "sha256": "22171aa209f6eaa375e08d92e4fd6052fbe38f6696d4b48306ade791bb67a340"
+    },
+    {
+      "path": "features/corrida_38.parquet",
+      "rows": 9200,
+      "run_id": "corrida_38",
+      "sha256": "3af850fced5a4c544d2de0a127aa08c4da2c9afdd20ad872c11c0e3fe8186d52"
+    },
+    {
+      "path": "features/corrida_39.parquet",
+      "rows": 9200,
+      "run_id": "corrida_39",
+      "sha256": "62dcd9aa1991a6bab8bc433deb4aba48dbc41b67a7b2c324346efad3efc0ac47"
+    },
+    {
+      "path": "features/corrida_40.parquet",
+      "rows": 9200,
+      "run_id": "corrida_40",
+      "sha256": "8adb292a7eedbc0de996701b1234db59042d758634dcf66df2507cfc75d4dc8f"
+    },
+    {
+      "path": "features/corrida_41.parquet",
+      "rows": 9200,
+      "run_id": "corrida_41",
+      "sha256": "58b5e7607748784c49b8d03da2166473b143c2e46137340a45c00735c311b43e"
+    },
+    {
+      "path": "features/corrida_42.parquet",
+      "rows": 9200,
+      "run_id": "corrida_42",
+      "sha256": "0e8d73ace698bff3c315f5b0bca8ff254d625d229d631657268d75c993ecd561"
+    },
+    {
+      "path": "features/corrida_43.parquet",
+      "rows": 9200,
+      "run_id": "corrida_43",
+      "sha256": "1305e521828276eef5b81f4a1b53ffb8e8d5be5f59f926a69307d3e37e679c2b"
+    },
+    {
+      "path": "features/corrida_44.parquet",
+      "rows": 9200,
+      "run_id": "corrida_44",
+      "sha256": "09e2df949148d0f6529ada57c84c35785ad4b031685a8b9ce295209b5b2dd1c7"
+    },
+    {
+      "path": "features/corrida_45.parquet",
+      "rows": 9200,
+      "run_id": "corrida_45",
+      "sha256": "11dfd0e338059e7f37a87fe0daa0025f251c8b84e02d8e32b25ab13af6d35a14"
+    },
+    {
+      "path": "features/corrida_46.parquet",
+      "rows": 9200,
+      "run_id": "corrida_46",
+      "sha256": "39472b007e586c0644ac413102c4c7653a793c38f76776848ffb40eabdcc9267"
+    },
+    {
+      "path": "features/corrida_47.parquet",
+      "rows": 9200,
+      "run_id": "corrida_47",
+      "sha256": "0b2e5c11a96f9db29fc37949de22bc29e66bbfa1d427974605a862ce621bedfe"
+    },
+    {
+      "path": "features/corrida_48.parquet",
+      "rows": 9200,
+      "run_id": "corrida_48",
+      "sha256": "5ddfe121e58b2b48f44011a4f1f1d6cf8663c00514d8d5a5bef572731b0bc773"
+    },
+    {
+      "path": "features/corrida_49.parquet",
+      "rows": 9200,
+      "run_id": "corrida_49",
+      "sha256": "3bedeec6147d14cb0c19bf780e69531b4c98e5a328ccaf79347adbca94ab6774"
+    },
+    {
+      "path": "features/corrida_50.parquet",
+      "rows": 9200,
+      "run_id": "corrida_50",
+      "sha256": "2ccb6925c283baaa2b0a04ed7fbf42920cbebc13834f55647ce043b0be6ab7c6"
+    },
+    {
+      "path": "features/corrida_51.parquet",
+      "rows": 9200,
+      "run_id": "corrida_51",
+      "sha256": "336af3493ed6f7e4426a4766503a8278879af95c95f69b2dc847b3ddb2804ae8"
+    },
+    {
+      "path": "features/corrida_52.parquet",
+      "rows": 9200,
+      "run_id": "corrida_52",
+      "sha256": "c51d4428069eb366bae105ffd2ae771a1a6d6c2951d1001e519c80a7bce75f16"
+    },
+    {
+      "path": "features/corrida_53.parquet",
+      "rows": 9200,
+      "run_id": "corrida_53",
+      "sha256": "cfe7d11c0215bfb55017ffbbed89ef4740f40f37f523e29256a11f5e47d7cf63"
+    },
+    {
+      "path": "features/corrida_54.parquet",
+      "rows": 9200,
+      "run_id": "corrida_54",
+      "sha256": "e26d482a80d19b14cc1b92dabbe44ce5c482510010fb51cc4f4dcc98923f4d9e"
+    }
+  ],
+  "feature_version": "challenge-kaiku-features-v2",
+  "log_events": {
+    "path": "log-events.parquet",
+    "raw_messages_stored": false,
+    "rows": 64800,
+    "sha256": "81daa0892f184b7b007c5be6dfc369ebf338de81890964c58adcf2a029b4e5df"
+  },
+  "log_feature_version": "challenge-kaiku-log-features-v1",
+  "logs": [
+    {
+      "events": 1200,
+      "run_id": "corrida_01",
+      "sha256": "6fbef58102e078053c17703fd332ab2f58f010cdf8a95e5a17920501c71cda39",
+      "source_name": "corrida_01/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_02",
+      "sha256": "cff80854db7ee6af0be152a035dcdcfe173e4199960e90badc37fceb2c80caeb",
+      "source_name": "corrida_02/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_03",
+      "sha256": "d2536d807adc63ec20f219cfb510102bef5132104d9106fba7525986da34d275",
+      "source_name": "corrida_03/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_04",
+      "sha256": "23c6aea4a3c09829a88b47b7386ad47e94b789c74d05f2370d7e131b4b9fd00f",
+      "source_name": "corrida_04/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_05",
+      "sha256": "c4cf0bb5119c85cb48fd921da6338015f7b78ded5777a2b2f8cdfc447458b0d3",
+      "source_name": "corrida_05/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_06",
+      "sha256": "33a15259ad7db2bfed0d78abd669725482cde2286fe4ccd25275e10715b7ef5b",
+      "source_name": "corrida_06/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_07",
+      "sha256": "a37383f8f0f92fe312eb5d7a006c6a693ab09b24e2126474a62b77d7b01b0f03",
+      "source_name": "corrida_07/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_08",
+      "sha256": "01d017a9e8f995ace5253b7cc13eb68b6738771259041c05f79ae9eb63153924",
+      "source_name": "corrida_08/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_09",
+      "sha256": "ebdcd5ae5a458c1358c3b8b391095382f1a2355f98d46d154ed6b5d15a28684a",
+      "source_name": "corrida_09/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_10",
+      "sha256": "6f610eb7f8ad53c992bc46747060b4025ab854e8582cb1f0fe500cf74da16a26",
+      "source_name": "corrida_10/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_11",
+      "sha256": "5cbf12ce023f3e19dae847921c4e4e4780053efae02baeeea10a6805174dd94a",
+      "source_name": "corrida_11/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_12",
+      "sha256": "4e6046847297a8152eef88babe597255166f294bbead555cefbdf219b4cf9592",
+      "source_name": "corrida_12/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_13",
+      "sha256": "334fb8f6422110c2a48ab47326a8ecedee1d3e4d3f0a9520495e981134f7e3a3",
+      "source_name": "corrida_13/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_14",
+      "sha256": "72b34325e849dc69cfe4c0c0ed14407b5c0e39890530558a95d9cbdabb4225d0",
+      "source_name": "corrida_14/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_15",
+      "sha256": "1c8eb804d347e3a15abf59f90b51803457fed7e3852d41ee151b49954bc69788",
+      "source_name": "corrida_15/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_16",
+      "sha256": "e5ba9d03c4bf2d54a716e70915a686dfd09996736014921ce192a73f2de660e4",
+      "source_name": "corrida_16/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_17",
+      "sha256": "d8f8a23e25b25c313f91b94e31894d18a895bff6aeab82e537c03e22a572550c",
+      "source_name": "corrida_17/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_18",
+      "sha256": "5962ea13503ec7aa5e4371aa606715021b6c0829db27af437dd4b9ba92af5215",
+      "source_name": "corrida_18/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_19",
+      "sha256": "b810766131fcedcca64384b28e80904d914003b5005774cf2e3cf95999f05533",
+      "source_name": "corrida_19/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_20",
+      "sha256": "a7ff37cf9212cb4f8383825ef977f23ac96c6b7712740e0a95660eaba2439135",
+      "source_name": "corrida_20/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_21",
+      "sha256": "0f30f62305e30b88b327992411e37bea869b6add497924b508a0e49d418dd822",
+      "source_name": "corrida_21/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_22",
+      "sha256": "8482dcc29aedb0a0618c39e42e54377654b4ae50931d05ddc1e18bbd28a76593",
+      "source_name": "corrida_22/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_23",
+      "sha256": "73cce2dac89aeadf3083a4fe8d0e75985076449c99b987bd9ece5d0e484a4b55",
+      "source_name": "corrida_23/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_24",
+      "sha256": "021ef4e49c8fd0d59ab64426a0e992fe1a3e7df5226bda7ad144f60e999e8e82",
+      "source_name": "corrida_24/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_25",
+      "sha256": "457de58f065c869c7f8c743fec5cb8a1e9192b86738ac7a983fd023c63809c31",
+      "source_name": "corrida_25/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_26",
+      "sha256": "5f2c1944f91d21d0e659e0822ae06190801e50f957ae02243da09d0dbae5caff",
+      "source_name": "corrida_26/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_27",
+      "sha256": "b37462b975b7f65a0b7563d9efd37759d86b46a83bd1eef36c0f2d95c9853ab0",
+      "source_name": "corrida_27/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_28",
+      "sha256": "1453581ca599be4cb05839a453ed975991717cb3b6fbce2890378735a5d531b2",
+      "source_name": "corrida_28/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_29",
+      "sha256": "8c47aab10d86b6d2c3d53ad221aefb80cf01e3d13351d124e08888f4b46bf189",
+      "source_name": "corrida_29/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_30",
+      "sha256": "a9bc353fc46d2efc55e73f7a318f707489150fc88e638112970227a9b918ab63",
+      "source_name": "corrida_30/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_31",
+      "sha256": "e18bad0bcc2b5b76b1ad07791248b7e7fb857c231268c374f7a48b985f659309",
+      "source_name": "corrida_31/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_32",
+      "sha256": "b1b861584132f85e811cc076972395073ab4f920ba9d0e06a86e5c902e28b386",
+      "source_name": "corrida_32/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_33",
+      "sha256": "358df17807423505474b837b80dddf80ca387d017359fea4e283688fca449794",
+      "source_name": "corrida_33/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_34",
+      "sha256": "e783be51c48c639660f03a0b7e2c063e2095a397c22d2aa6665b2077eded34af",
+      "source_name": "corrida_34/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_35",
+      "sha256": "a1ef0c8c1f09b94b7ce3fe07779284c10f34226aaf6245ddd0ccad35e5deda10",
+      "source_name": "corrida_35/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_36",
+      "sha256": "59c32267a2893ba89f2b508676e86f8e9680ec5a88fb1f83bcb588a18d81df4c",
+      "source_name": "corrida_36/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_37",
+      "sha256": "22c913eb4fc72006237768a9a74236894f70ab96e25c76f181d96602e4e907d6",
+      "source_name": "corrida_37/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_38",
+      "sha256": "cdfef1da584833a2e740e1ef2bb49cd25f569bd1d71c8d635f26b91d56ec5922",
+      "source_name": "corrida_38/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_39",
+      "sha256": "f04f6305c3c33835ec404835cbd562184887a4c962ca7826998957b1686e0147",
+      "source_name": "corrida_39/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_40",
+      "sha256": "c1b2e529d9952a1208e03d8e774ce62569a901b53aedeeeab087b49191a13ba9",
+      "source_name": "corrida_40/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_41",
+      "sha256": "19672d0893e766adde142f2b0584b81d5cf396ae2c6f72f33962c0d82b192f62",
+      "source_name": "corrida_41/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_42",
+      "sha256": "6b5bb1cc0292c503dbb7b03a7c2007c7f0e1de46ecb7a635f6d98658c47c8712",
+      "source_name": "corrida_42/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_43",
+      "sha256": "3e4e20e6d310fa83b1bb831154adf579aa586e9dac052bb66db81b6e61655b5a",
+      "source_name": "corrida_43/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_44",
+      "sha256": "6a87f066ddf94fb7e4dcef4925ae5f4df0cec56d155b9cb877cb1bc0a1910fe3",
+      "source_name": "corrida_44/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_45",
+      "sha256": "9b20fe1709cf84da5ec3b9f30fecba32c3b873098d49a47eca8f8802b914b274",
+      "source_name": "corrida_45/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_46",
+      "sha256": "37dbac18dd23c8d2f3bab406dc74b543d3c46905e96a7ae96c48247f7750c79f",
+      "source_name": "corrida_46/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_47",
+      "sha256": "000473913ad5c42f44f41a58d74b8fe4a276df4a20096837da15b05fceb018a4",
+      "source_name": "corrida_47/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_48",
+      "sha256": "d1a9d29faeca665bb6daee137b2175404befe8dbd2056895a203e55a91661627",
+      "source_name": "corrida_48/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_49",
+      "sha256": "352deb8de6efcb3915bd98938425da597b03bae039bad6838d8a45df802785df",
+      "source_name": "corrida_49/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_50",
+      "sha256": "c7c9654db795c252e8ec3841ef48ba7e4cb030a638fe7c989440bb5192f50305",
+      "source_name": "corrida_50/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_51",
+      "sha256": "415774b0829a28667b75bb497f3c01ee28cb7d85c8a9fbc742cfcc644bd45f6d",
+      "source_name": "corrida_51/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_52",
+      "sha256": "6515d0cbb861c242c98a4a82fd7602b33086030647d7bfcf00e52ba5a198043c",
+      "source_name": "corrida_52/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_53",
+      "sha256": "7a75b75429114e051863871ceff4763fed1dbe0b736061a15f7d628f4b5dc0e0",
+      "source_name": "corrida_53/kaiku/logs.md"
+    },
+    {
+      "events": 1200,
+      "run_id": "corrida_54",
+      "sha256": "064476524c4b5023fdc5bc8ae9416f92ed4bbe1a2d88c98d99b8add87d280632",
+      "source_name": "corrida_54/kaiku/logs.md"
+    }
+  ],
+  "report": {
+    "path": "feature-report.json",
+    "sha256": "d251db000556d9010295b666fb1e49f19c9ab9aad62e30778668f80156c26a0b"
+  },
+  "scope": {
+    "kaiku_only": true,
+    "target_tenant": "kaiku"
+  },
+  "source": {
+    "base_feature_manifest_sha256": "aeaae721dafc4e1a80b4020683a040902305a014694501db21f3b8d8d5957475",
+    "phase_one_manifest_sha256": "17c70a2f017b03bf3666f680788997ab37858851eb8bf208414edef8fa7010e6"
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "claim_boundary": {
+    "customer_impact_observed": false,
+    "mitigation_executed": false,
+    "official_ground_truth_used": false,
+    "recovery_verified": false,
+    "representative_alert_confirmed_real_incident": false,
+    "root_cause_demonstrated": false
+  },
+  "company": {
+    "business": "tienda en línea",
+    "critical_flow": "catálogo → carrito → checkout → pago → pedido",
+    "tenant": "kaiku"
+  },
+  "demo_api_sequence": [
+    {
+      "authentication": "X-Admin-Token",
+      "body": {
+        "run_id": "corrida_09"
+      },
+      "method": "POST",
+      "path": "/api/challenge/replay"
+    },
+    {
+      "authentication": "none",
+      "method": "GET",
+      "path": "/api/challenge/alerts?run_id=corrida_09"
+    },
+    {
+      "authentication": "none",
+      "method": "GET",
+      "path": "/api/challenge/alerts/stream"
+    }
+  ],
+  "false_alarm_control": {
+    "interpretation": "La ablación cambia el comportamiento de alertas; no es una métrica oficial de precisión.",
+    "known_event_alerts_with_context": 0,
+    "known_event_alerts_without_context": 60
+  },
+  "gates": {
+    "action_boundary": {
+      "execution_authorized": false,
+      "mitigation_executed": false,
+      "passed": true,
+      "recovery_verified": false
+    },
+    "causal_evidence_present": {
+      "passed": true,
+      "signal_count": 3
+    },
+    "context_ablation": {
+      "passed": true,
+      "with_context_known_event_alerts": 0,
+      "without_context_known_event_alerts": 60
+    },
+    "data_quality_separated": {
+      "passed": true
+    },
+    "isolated_test_case": {
+      "passed": true,
+      "split": "test",
+      "test_run_count": 9
+    },
+    "known_event_excluded": {
+      "passed": true
+    },
+    "logs_are_explanatory_only": {
+      "passed": true,
+      "typed_with_logs": 116,
+      "typed_without_logs": 86
+    },
+    "release_package_integrity": {
+      "files_verified": 16,
+      "passed": true
+    }
+  },
+  "representative_case": {
+    "alert_timestamp": "2026-10-13T20:00:00",
+    "business_interpretation": "Las señales observadas podrían degradar la capacidad del checkout; el kit público no demuestra impacto al cliente ni causa raíz.",
+    "confidence_semantics": "score de riesgo, no probabilidad calibrada de incidente",
+    "evidence": [
+      {
+        "signal": "errores_past_robust_z_1440m",
+        "value": 4721435.5
+      },
+      {
+        "signal": "latencia_ms_past_robust_z_1440m",
+        "value": 26.8672
+      },
+      {
+        "signal": "cpu_past_robust_z_1440m",
+        "value": 10.1327
+      }
+    ],
+    "model_version": "challenge-kaiku-early-warning-v6",
+    "recommended_action": "Revisar errores recientes, dependencias y latencia; preparar reversión o aislamiento del componente afectado.",
+    "response_plan": {
+      "approval_required": true,
+      "controlled_steps": [
+        "Ejecutar rollback aprobado si existe una versión saludable conocida.",
+        "Aislar la dependencia solamente si hay una ruta degradada segura."
+      ],
+      "diagnostic_steps": [
+        "Correlacionar errores con endpoint, dependencia y despliegue reciente.",
+        "Confirmar si checkout, pagos o inventario están afectados."
+      ],
+      "environment": "official_synthetic_challenge_replay",
+      "execution_authorized": false,
+      "execution_mode": "recommendation_only",
+      "matched_incident_type": "application_errors",
+      "requested_incident_type": "application_errors",
+      "runbook_id": "kaiku.application.error-burst.v1",
+      "stop_conditions": [
+        "No existe una versión saludable o rollback probado.",
+        "El aislamiento puede perder pedidos o pagos."
+      ],
+      "summary": "Revisar errores recientes, dependencias y latencia; preparar reversión o aislamiento del componente afectado.",
+      "title": "Aislar incremento de errores",
+      "verification": [
+        {
+          "condition": "regresa al rango histórico",
+          "signal": "errores",
+          "stable_minutes": 10
+        },
+        {
+          "condition": "permanece estable",
+          "signal": "latencia_ms",
+          "stable_minutes": 10
+        }
+      ],
+      "verification_status": "not_started",
+      "version": "challenge-kaiku-response-plan-v1"
+    },
+    "risk_score": 0.9398607611656189,
+    "run_id": "corrida_09",
+    "signal_timestamp": "2026-10-13T19:56:00",
+    "signal_to_alert_minutes": 4.0,
+    "split": "test",
+    "suspected_incident_type": "application_errors",
+    "tenant": "kaiku"
+  },
+  "scope": "demostración guiada del backend sobre el split sintético oficial de prueba de Kaiku",
+  "selection_rule": "mayor score de riesgo entre alertas tipificadas fuera de eventos conocidos en el split de prueba congelado; los empates usan run_id y timestamp",
+  "status": "passed",
+  "telemetry_outage_case": {
+    "alert_timestamp": "2026-10-09T16:42:00",
+    "classification": "data_quality_alert",
+    "data_quality": "outage",
+    "evidence": {
+      "observed_metrics": 0,
+      "outage_streak_minutes": 3
+    },
+    "interpretation": "La pérdida de visibilidad se alerta por separado y no se presenta como incidente del negocio sin evidencia adicional.",
+    "run_id": "corrida_09",
+    "signal_timestamp": "2026-10-09T16:40:00"
+  },
+  "version": "challenge-kaiku-guided-showcase-v1"
+}

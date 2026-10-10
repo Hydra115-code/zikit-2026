@@ -1,0 +1,42 @@
+{
+  "calibration": {
+    "metrics": {
+      "data_quality_alert_count": 37,
+      "detected_proxy_anchors": 18,
+      "false_alerts_per_tenant_day": 0.01739319491249049,
+      "false_incident_alerts": 1,
+      "incident_alert_count": 19,
+      "known_event_incident_alerts": 0,
+      "median_decision_latency_minutes": 11.0,
+      "median_lead_minutes": 41.5,
+      "objective": 0.9234903813634519,
+      "p10_lead_minutes": 10.200000000000001,
+      "p90_lead_minutes": 71.2,
+      "proxy_anchor_count": 20,
+      "proxy_f1": 0.9230769230769231,
+      "proxy_precision": 0.9473684210526315,
+      "proxy_recall": 0.9,
+      "tenant_days": 57.49375,
+      "typed_incident_alerts": 19
+    },
+    "official_ground_truth": false,
+    "split": "validation"
+  },
+  "config": {
+    "alert_threshold": 0.55,
+    "candidate_minutes": 3,
+    "candidate_threshold": 0.48,
+    "context_risk_multiplier": 0.25,
+    "cooldown_minutes": 360,
+    "critical_40m_threshold": 0.9845235347747803,
+    "critical_isolation_threshold": 0.85,
+    "data_quality_persistence_minutes": 3,
+    "observation_minutes": 3,
+    "observation_threshold": 0.46,
+    "recovery_minutes": 3,
+    "recovery_threshold": 0.34
+  },
+  "model_sha256": "b894751ed501547490b7124b65cbf7d1a121e2aed532a5d4877b55aa43ebe444",
+  "model_version": "challenge-kaiku-early-warning-v6",
+  "policy_version": "challenge-alert-policy-v6"
+}

@@ -1,0 +1,51 @@
+{
+  "files": {
+    "evidence/rehearsal-manifest.json": "354aa24d7c422e961b6457ddfed5ea14fd4a5c71aa364f554c9b77c39b88e521",
+    "evidence/rehearsal-report.json": "0d98e2a8564784dda4ca97d6d1e0a2b6f80fabd7b6d2eeb0fbfc5947f15970f4",
+    "evidence/showcase-manifest.json": "4c82800e5e807fb0de5f0a6be26c53fe2bf017226ad5a87ce66c371af8eb88a5",
+    "evidence/showcase.json": "fba2026b75238ab6e59ed34d469e02b64fa75bff1f3864e4c0239eba100b5fb0",
+    "features/feature-report.json": "db7241e1454b7f2859d2e49807bbf84b93af70151ab1dd624565601e480622a6",
+    "features/features/corrida_09.parquet": "3d502adf9b716e29ec2448af2b66a9d0c502822549d21b2f33822af4f93ba0a0",
+    "features/log-events.parquet": "8648b391d784300dfabdc69e4b2c94626606c5109cc71acf72a56fbc490a5d29",
+    "features/manifest.json": "2d8dd5dd28db0664c6861c12de8e58c6cf2fa21ee814b3d049700edd21c26373",
+    "models/challenge_alert_policy.json": "15e135b5c238c6075266c70f6de0bf8b909ceeb5ddeb530c6ca0d1ba5e301050",
+    "models/challenge_alert_policy.json.sha256": "0e173b03508a968aa14c81926a07a9a01ee7020f241a12fd308dd2e91c4c4596",
+    "models/challenge_early_warning.joblib": "b894751ed501547490b7124b65cbf7d1a121e2aed532a5d4877b55aa43ebe444",
+    "models/challenge_early_warning.joblib.metadata.json": "7f8c9a7c9364a1632d300e0fad1fdfc2f1da2090c9921e396d77c150f29d7b8a",
+    "models/challenge_early_warning.joblib.sha256": "5f8b50d8f007aecea0f0e020bacfa21b32bbb47da0e50f8d3998bb5db3da602d"
+  },
+  "gates": {
+    "model_policy_binding": true,
+    "no_action_claim": true,
+    "passed_live_rehearsal": true,
+    "representative_alert_parity": true,
+    "runtime_replay": true,
+    "signed_showcase": true,
+    "single_declared_run": true,
+    "source_integrity": true
+  },
+  "limitations": {
+    "automatic_mitigation": false,
+    "full_54_run_evaluation_packaged": false,
+    "packaged_runs": 1,
+    "remote_infrastructure_observed": false
+  },
+  "replay": {
+    "data_quality_alerts": 3,
+    "incident_alerts": 2,
+    "model_sha256": "b894751ed501547490b7124b65cbf7d1a121e2aed532a5d4877b55aa43ebe444",
+    "policy_sha256": "15e135b5c238c6075266c70f6de0bf8b909ceeb5ddeb530c6ca0d1ba5e301050",
+    "rows_processed": 9200
+  },
+  "run_id": "corrida_09",
+  "runtime_environment": {
+    "CHALLENGE_FEATURES_PATH": "/app/runtime/features",
+    "CHALLENGE_MODEL_PATH": "/app/runtime/models/challenge_early_warning.joblib",
+    "CHALLENGE_POLICY_PATH": "/app/runtime/models/challenge_alert_policy.json",
+    "CHALLENGE_REHEARSAL_PATH": "/app/runtime/evidence/rehearsal-report.json",
+    "CHALLENGE_SHOWCASE_PATH": "/app/runtime/evidence/showcase.json"
+  },
+  "scope": "minimal deployable runtime for official synthetic Kaiku replay",
+  "status": "passed",
+  "version": "challenge-kaiku-deployment-bundle-v1"
+}

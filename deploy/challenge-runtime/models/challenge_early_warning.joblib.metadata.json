@@ -1,0 +1,19 @@
+{
+  "architecture_version": "challenge-kaiku-early-warning-architecture-v1",
+  "evaluation_scope": "variable proxy episodes are diagnostic only; official labels were not accessed",
+  "feature_count": 219,
+  "feature_version": "challenge-kaiku-features-v2",
+  "horizons_minutes": [
+    40,
+    120,
+    360,
+    1440
+  ],
+  "log_feature_version": null,
+  "model_version": "challenge-kaiku-early-warning-v6",
+  "sha256": "b894751ed501547490b7124b65cbf7d1a121e2aed532a5d4877b55aa43ebe444",
+  "target_tenant": "kaiku",
+  "test_runs": 9,
+  "training_runs": 36,
+  "validation_runs": 9
+}

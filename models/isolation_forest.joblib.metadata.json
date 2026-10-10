@@ -1,0 +1,19 @@
+{
+  "model": "models/isolation_forest.joblib",
+  "feature_version": "3",
+  "features": [
+    "latency_ratio",
+    "error_rate",
+    "timeout_rate",
+    "request_rate_ratio",
+    "availability"
+  ],
+  "seed": 42,
+  "target_false_positive_rate": 0.01,
+  "calibrated_threshold": 1.449690876166185,
+  "training_rows": 73178,
+  "training_runs": 894,
+  "validation_normal_rows": 24235,
+  "validation_runs": 297,
+  "observed_validation_false_positive_rate": 0.010026820713843615
+}

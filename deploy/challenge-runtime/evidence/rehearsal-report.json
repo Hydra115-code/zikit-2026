@@ -1,0 +1,85 @@
+{
+  "case": {
+    "alert_timestamp": "2026-10-13T20:00:00",
+    "event_id": 7,
+    "incident_id": "d1f3caf2-8f55-54df-b0b6-f070ec550688",
+    "outbox_alert_id": 5,
+    "run_id": "corrida_09",
+    "signal_timestamp": "2026-10-13T19:56:00",
+    "suspected_incident_type": "application_errors",
+    "synthetic_signal_to_alert_minutes": 4.0
+  },
+  "environment": {
+    "backend_process": "Uvicorn child process",
+    "database": "temporary SQLite",
+    "remote_machine": false,
+    "transport": "real HTTP over 127.0.0.1"
+  },
+  "gates": {
+    "acknowledgement_resumed_by_cursor": {
+      "cursor_after_ack": 8,
+      "cursor_after_repeat_ack": 8,
+      "cursor_before_ack": 7,
+      "delivery_to_acknowledgement_seconds": 0.019448,
+      "passed": true
+    },
+    "alert_received_by_sse": {
+      "event_id": 7,
+      "passed": true
+    },
+    "backend_started": {
+      "clean_shutdown": true,
+      "forced_shutdown": false,
+      "passed": true,
+      "startup_milliseconds": 1862.7274760001455
+    },
+    "contract_and_showcase": {
+      "passed": true
+    },
+    "durable_integrity": {
+      "integrity": {
+        "acknowledgements_have_single_event": true,
+        "incident_predictions_have_first_signal": true,
+        "passed": true,
+        "predictions_have_event_and_outbox": true
+      },
+      "passed": true
+    },
+    "evidence_and_response": {
+      "incident_id": "d1f3caf2-8f55-54df-b0b6-f070ec550688",
+      "passed": true,
+      "runbook": "kaiku.application.error-burst.v1"
+    },
+    "idempotent_replay": {
+      "existing_alerts_on_repeat": 5,
+      "new_alerts_on_repeat": 0,
+      "passed": true
+    },
+    "live_replay": {
+      "data_quality_alerts": 3,
+      "incident_alerts": 2,
+      "passed": true,
+      "request_milliseconds": 656.9309420010541,
+      "run_id": "corrida_09"
+    },
+    "safety_boundary": {
+      "gemini_used": false,
+      "mcp_required": false,
+      "mitigation_executed": false,
+      "passed": true,
+      "recovery_verified": false
+    }
+  },
+  "limitations": {
+    "customer_impact_observed": false,
+    "mitigation_executed": false,
+    "official_ground_truth_used": false,
+    "recovery_verified": false,
+    "remote_infrastructure_observed": false,
+    "representative_alert_confirmed_real_incident": false
+  },
+  "scope": "live loopback HTTP rehearsal using official synthetic Kaiku replay",
+  "status": "passed",
+  "total_wall_milliseconds": 4028.080789001251,
+  "version": "challenge-kaiku-live-rehearsal-v1"
+}

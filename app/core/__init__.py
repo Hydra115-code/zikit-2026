@@ -1,0 +1,2 @@
+"""Detection and response core."""
+
