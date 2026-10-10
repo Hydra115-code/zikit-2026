@@ -76,7 +76,7 @@ class Settings(BaseSettings):
     auto_mitigation_enabled: bool = True
     mitigation_cooldown_seconds: float = Field(default=10, ge=0)
     gemini_api_key: str | None = None
-    gemini_model: str = "gemini-2.5-flash"
+    gemini_model: str = "gemini-3.7-flash"
     gemini_timeout_seconds: float = Field(default=60, gt=0, le=120)
     gemini_max_tool_calls: int = Field(default=7, ge=1, le=20)
     gemini_max_attempts: int = Field(default=3, ge=1, le=5)

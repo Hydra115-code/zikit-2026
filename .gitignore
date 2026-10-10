@@ -1,21 +1,30 @@
 .env
 .env.*
+!.env.example
 .venv/
 __pycache__/
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
 .coverage
 htmlcov/
 *.py[cod]
 *.egg-info/
 *.db
 *.db-journal
+*.sqlite
+*.sqlite3
 *.log
+.DS_Store
+.idea/
+.vscode/
 
 # Local evidence and working material are intentionally not distributed.
 AGENTS.md
-.venv
 .codex
 docs/
+PHASE_*.md
+*_handoff.md
 data/*
 !data/challenge-phase-3-logs/
 !data/challenge-phase-3-logs/**
