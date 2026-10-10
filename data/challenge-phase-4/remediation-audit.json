@@ -1,0 +1,308 @@
+{
+  "audit_version": "challenge-controlled-remediation-audit-v1",
+  "cases": [
+    {
+      "final": {
+        "action_completed_at": "2026-10-10T18:09:39.974934+00:00",
+        "action_started_at": "2026-10-10T18:09:39.837605+00:00",
+        "alert_id": 1,
+        "audit": {
+          "catalog_sha256": "2c78a020afc5889d5c6f8578fb9f8371c27c599a2d9ccfaff2c26ef107f3b9e9",
+          "catalog_version": "challenge-controlled-remediation-v1",
+          "delivered_at": "2026-10-10T18:09:39.680307+00:00",
+          "eligible_at": "2026-10-10T18:09:39.680307+00:00",
+          "environment": "controlled_infrastructure_demo",
+          "mcp_execution": {
+            "action": "enable_checkout_concurrency_guard",
+            "baseline": {
+              "cpu": 39.099998474121094,
+              "disco": 44.0,
+              "errores": 4.0,
+              "latencia_ms": 121.0,
+              "ram": 48.599998474121094
+            },
+            "environment": "controlled_infrastructure_demo",
+            "executed_at": "2026-10-10T18:09:39.973147+00:00",
+            "idempotency_key": "a86814d1-5350-5f42-9d44-18cfac91ed64:execute",
+            "idempotent_replay": false,
+            "incident_id": "abaac8e7-7a08-5ca5-b6ca-3147a87f7f53",
+            "preauthorized": true,
+            "remediation_id": "a86814d1-5350-5f42-9d44-18cfac91ed64",
+            "reversible": true,
+            "rollback_action": "disable_checkout_concurrency_guard",
+            "runbook_id": "kaiku.controlled.checkout-concurrency-guard.v1",
+            "state": "completed",
+            "target": {
+              "cpu": 32.061999,
+              "errores": 1.2,
+              "latencia_ms": 72.6
+            }
+          },
+          "transitions": [
+            {
+              "event": "CHALLENGE_REMEDIATION_ACTION_COMPLETED",
+              "mcp_result": {
+                "action": "enable_checkout_concurrency_guard",
+                "baseline": {
+                  "cpu": 39.099998474121094,
+                  "disco": 44.0,
+                  "errores": 4.0,
+                  "latencia_ms": 121.0,
+                  "ram": 48.599998474121094
+                },
+                "environment": "controlled_infrastructure_demo",
+                "executed_at": "2026-10-10T18:09:39.973147+00:00",
+                "idempotency_key": "a86814d1-5350-5f42-9d44-18cfac91ed64:execute",
+                "idempotent_replay": false,
+                "incident_id": "abaac8e7-7a08-5ca5-b6ca-3147a87f7f53",
+                "preauthorized": true,
+                "remediation_id": "a86814d1-5350-5f42-9d44-18cfac91ed64",
+                "reversible": true,
+                "rollback_action": "disable_checkout_concurrency_guard",
+                "runbook_id": "kaiku.controlled.checkout-concurrency-guard.v1",
+                "state": "completed",
+                "target": {
+                  "cpu": 32.061999,
+                  "errores": 1.2,
+                  "latencia_ms": 72.6
+                }
+              },
+              "timestamp": "2026-10-10T18:09:39.974934+00:00"
+            }
+          ],
+          "wait_seconds": 0.0
+        },
+        "catalog_sha256": "2c78a020afc5889d5c6f8578fb9f8371c27c599a2d9ccfaff2c26ef107f3b9e9",
+        "catalog_version": "challenge-controlled-remediation-v1",
+        "decision_provider": "gemini-contract-double",
+        "decision_reason": "Doble contractual de Gemini: eligió un ID exacto de la lista segura para application_errors.",
+        "eligible_at": "2026-10-10T18:09:39.680307+00:00",
+        "environment": "controlled_infrastructure_demo",
+        "failure_code": null,
+        "incident_id": "abaac8e7-7a08-5ca5-b6ca-3147a87f7f53",
+        "remediation_id": "a86814d1-5350-5f42-9d44-18cfac91ed64",
+        "runbook_id": "kaiku.controlled.checkout-concurrency-guard.v1",
+        "status": "recovered",
+        "verification_completed_at": "2026-10-10T18:09:39.988425+00:00",
+        "wait_seconds": 0.0
+      },
+      "incident_id": "abaac8e7-7a08-5ca5-b6ca-3147a87f7f53",
+      "model_sha256": "b894751ed501547490b7124b65cbf7d1a121e2aed532a5d4877b55aa43ebe444",
+      "persisted": {
+        "created": 1,
+        "existing": 0,
+        "latest_id": 2
+      },
+      "policy_sha256": "15e135b5c238c6075266c70f6de0bf8b909ceeb5ddeb530c6ca0d1ba5e301050",
+      "processed": 1,
+      "risk_score": 0.6534380316734314,
+      "run_id": "corrida_01",
+      "scenario": "recovery_verified",
+      "source_feature_sha256": "6198b1bfc13108a0b8f1a132b58d70326f7adba9ab0bdd22798f24d95e731a2a",
+      "suspected_incident_type": "application_errors"
+    },
+    {
+      "final": null,
+      "incident_id": "b1a4fac7-00f5-5cc3-b621-8db8f4fe3e91",
+      "model_sha256": "b894751ed501547490b7124b65cbf7d1a121e2aed532a5d4877b55aa43ebe444",
+      "persisted": {
+        "created": 1,
+        "existing": 0,
+        "latest_id": 2
+      },
+      "policy_sha256": "15e135b5c238c6075266c70f6de0bf8b909ceeb5ddeb530c6ca0d1ba5e301050",
+      "processed": 0,
+      "risk_score": 0.6417175531387329,
+      "run_id": "corrida_02",
+      "scenario": "operator_acknowledged",
+      "source_feature_sha256": "7b439120a4692cfd6d79360af970ba98ae6234cd7f1a0fdfea98e348a2698434",
+      "suspected_incident_type": "application_errors"
+    },
+    {
+      "final": {
+        "action_completed_at": null,
+        "action_started_at": null,
+        "alert_id": 1,
+        "audit": {
+          "catalog_sha256": "2c78a020afc5889d5c6f8578fb9f8371c27c599a2d9ccfaff2c26ef107f3b9e9",
+          "catalog_version": "challenge-controlled-remediation-v1",
+          "delivered_at": "2026-10-10T18:09:40.045882+00:00",
+          "eligible_at": "2026-10-10T18:09:40.045882+00:00",
+          "environment": "controlled_infrastructure_demo",
+          "wait_seconds": 0.0
+        },
+        "catalog_sha256": "2c78a020afc5889d5c6f8578fb9f8371c27c599a2d9ccfaff2c26ef107f3b9e9",
+        "catalog_version": "challenge-controlled-remediation-v1",
+        "decision_provider": "gemini-unavailable",
+        "decision_reason": null,
+        "eligible_at": "2026-10-10T18:09:40.045882+00:00",
+        "environment": "controlled_infrastructure_demo",
+        "failure_code": "GeminiInjectedUnavailable",
+        "incident_id": "573a7d08-2b4b-558a-a935-98e7986b6b5c",
+        "remediation_id": "970f6b1f-69f5-5552-ac83-edb538caeb85",
+        "runbook_id": null,
+        "status": "escalated",
+        "verification_completed_at": null,
+        "wait_seconds": 0.0
+      },
+      "incident_id": "573a7d08-2b4b-558a-a935-98e7986b6b5c",
+      "model_sha256": "b894751ed501547490b7124b65cbf7d1a121e2aed532a5d4877b55aa43ebe444",
+      "persisted": {
+        "created": 1,
+        "existing": 0,
+        "latest_id": 2
+      },
+      "policy_sha256": "15e135b5c238c6075266c70f6de0bf8b909ceeb5ddeb530c6ca0d1ba5e301050",
+      "processed": 1,
+      "risk_score": 0.6557496786117554,
+      "run_id": "corrida_03",
+      "scenario": "gemini_unavailable",
+      "source_feature_sha256": "37d871cdb5e2ca661c7aadc8eaae6828dace69e71757c606348da5cff048219c",
+      "suspected_incident_type": "application_errors"
+    },
+    {
+      "final": {
+        "action_completed_at": "2026-10-10T18:09:40.498836+00:00",
+        "action_started_at": "2026-10-10T18:09:40.367697+00:00",
+        "alert_id": 1,
+        "audit": {
+          "catalog_sha256": "2c78a020afc5889d5c6f8578fb9f8371c27c599a2d9ccfaff2c26ef107f3b9e9",
+          "catalog_version": "challenge-controlled-remediation-v1",
+          "delivered_at": "2026-10-10T18:09:40.211228+00:00",
+          "eligible_at": "2026-10-10T18:09:40.211228+00:00",
+          "environment": "controlled_infrastructure_demo",
+          "mcp_execution": {
+            "action": "enable_checkout_concurrency_guard",
+            "baseline": {
+              "cpu": 35.29999923706055,
+              "disco": 44.0,
+              "errores": 1.0,
+              "latencia_ms": 117.0,
+              "ram": 50.29999923706055
+            },
+            "environment": "controlled_infrastructure_demo",
+            "executed_at": "2026-10-10T18:09:40.496850+00:00",
+            "idempotency_key": "72206554-a820-59dc-8446-66a9433ee1dd:execute",
+            "idempotent_replay": false,
+            "incident_id": "dbba5ef9-a406-508a-b8a1-db753920faf5",
+            "preauthorized": true,
+            "remediation_id": "72206554-a820-59dc-8446-66a9433ee1dd",
+            "reversible": true,
+            "rollback_action": "disable_checkout_concurrency_guard",
+            "runbook_id": "kaiku.controlled.checkout-concurrency-guard.v1",
+            "state": "completed",
+            "target": {
+              "cpu": 28.945999,
+              "errores": 0.3,
+              "latencia_ms": 70.2
+            }
+          },
+          "mcp_rollback": {
+            "action": "disable_checkout_concurrency_guard",
+            "environment": "controlled_infrastructure_demo",
+            "idempotency_key": "72206554-a820-59dc-8446-66a9433ee1dd:rollback",
+            "idempotent_replay": false,
+            "incident_id": "dbba5ef9-a406-508a-b8a1-db753920faf5",
+            "remediation_id": "72206554-a820-59dc-8446-66a9433ee1dd",
+            "rolled_back_at": "2026-10-10T18:09:40.522128+00:00",
+            "runbook_id": "kaiku.controlled.checkout-concurrency-guard.v1",
+            "state": "completed"
+          },
+          "transitions": [
+            {
+              "event": "CHALLENGE_REMEDIATION_ACTION_COMPLETED",
+              "mcp_result": {
+                "action": "enable_checkout_concurrency_guard",
+                "baseline": {
+                  "cpu": 35.29999923706055,
+                  "disco": 44.0,
+                  "errores": 1.0,
+                  "latencia_ms": 117.0,
+                  "ram": 50.29999923706055
+                },
+                "environment": "controlled_infrastructure_demo",
+                "executed_at": "2026-10-10T18:09:40.496850+00:00",
+                "idempotency_key": "72206554-a820-59dc-8446-66a9433ee1dd:execute",
+                "idempotent_replay": false,
+                "incident_id": "dbba5ef9-a406-508a-b8a1-db753920faf5",
+                "preauthorized": true,
+                "remediation_id": "72206554-a820-59dc-8446-66a9433ee1dd",
+                "reversible": true,
+                "rollback_action": "disable_checkout_concurrency_guard",
+                "runbook_id": "kaiku.controlled.checkout-concurrency-guard.v1",
+                "state": "completed",
+                "target": {
+                  "cpu": 28.945999,
+                  "errores": 0.3,
+                  "latencia_ms": 70.2
+                }
+              },
+              "timestamp": "2026-10-10T18:09:40.498836+00:00"
+            }
+          ],
+          "wait_seconds": 0.0
+        },
+        "catalog_sha256": "2c78a020afc5889d5c6f8578fb9f8371c27c599a2d9ccfaff2c26ef107f3b9e9",
+        "catalog_version": "challenge-controlled-remediation-v1",
+        "decision_provider": "gemini-contract-double",
+        "decision_reason": "Doble contractual de Gemini: eligió un ID exacto de la lista segura para application_errors.",
+        "eligible_at": "2026-10-10T18:09:40.211228+00:00",
+        "environment": "controlled_infrastructure_demo",
+        "failure_code": "RuntimeError",
+        "incident_id": "dbba5ef9-a406-508a-b8a1-db753920faf5",
+        "remediation_id": "72206554-a820-59dc-8446-66a9433ee1dd",
+        "runbook_id": "kaiku.controlled.checkout-concurrency-guard.v1",
+        "status": "escalated",
+        "verification_completed_at": "2026-10-10T18:09:40.523707+00:00",
+        "wait_seconds": 0.0
+      },
+      "incident_id": "dbba5ef9-a406-508a-b8a1-db753920faf5",
+      "model_sha256": "b894751ed501547490b7124b65cbf7d1a121e2aed532a5d4877b55aa43ebe444",
+      "persisted": {
+        "created": 1,
+        "existing": 0,
+        "latest_id": 2
+      },
+      "policy_sha256": "15e135b5c238c6075266c70f6de0bf8b909ceeb5ddeb530c6ca0d1ba5e301050",
+      "processed": 1,
+      "risk_score": 0.6043124794960022,
+      "run_id": "corrida_04",
+      "scenario": "verification_failed",
+      "source_feature_sha256": "70f18a2185ca15b9e9a7debfb55bfe16ea24ae8f64ec36d543d8ae3bc9c5317d",
+      "suspected_incident_type": "application_errors"
+    }
+  ],
+  "claims": {
+    "controlled_infrastructure_tested": true,
+    "detector_score_modified": false,
+    "live_gemini_tested": false,
+    "official_ground_truth_used": false,
+    "production_infrastructure_tested": false
+  },
+  "expected_terminal_status": {
+    "gemini_unavailable": "escalated",
+    "operator_acknowledged": null,
+    "recovery_verified": "recovered",
+    "verification_failed": "escalated"
+  },
+  "gates": {
+    "acknowledgement_prevents_execution": true,
+    "at_least_three_official_runs": true,
+    "distinct_runs": true,
+    "failed_verification_rolls_back_and_escalates": true,
+    "gemini_failure_escalates_safely": true,
+    "success_path_verified": true
+  },
+  "generated_at": "2026-10-10T18:09:40.532506+00:00",
+  "implementation": {
+    "catalog_sha256": "2c78a020afc5889d5c6f8578fb9f8371c27c599a2d9ccfaff2c26ef107f3b9e9",
+    "critical_confidence_threshold": 0.6,
+    "gemini_live_used": false,
+    "gemini_test_mode": "A strict contract double selects only an allowlisted ID; one case injects Gemini unavailability. A live Gemini call requires GEMINI_API_KEY.",
+    "mcp_test_mode": "The exact MCP registry tools are invoked through the in-process MCP client to avoid requiring a network listener during the reproducible audit.",
+    "verification_minutes": 10,
+    "wait_seconds_in_audit": 0.0
+  },
+  "scope": "four isolated official synthetic Kaiku runs on controlled infrastructure",
+  "status": "passed"
+}

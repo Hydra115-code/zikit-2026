@@ -48,13 +48,14 @@ class ChallengeReplayService:
         policy_path: Path,
         *,
         require_all_tenants: bool = True,
+        critical_confidence_threshold: float = 0.60,
         executor: Callable[[str], ChallengeReplayExecution] | None = None,
     ) -> None:
         self.feature_directory = feature_directory
         self.model_path = model_path
         self.policy_path = policy_path
         self.require_all_tenants = require_all_tenants
-        self.store = ChallengePredictionRepository()
+        self.store = ChallengePredictionRepository(critical_confidence_threshold)
         self._replay_lock = asyncio.Lock()
         self._executor = executor or self._execute
 

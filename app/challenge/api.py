@@ -90,6 +90,10 @@ def _live_manager(request: Request) -> ChallengeLiveReplayManager:
     return request.app.state.challenge_live_replay_manager
 
 
+def _remediation_manager(request: Request):
+    return request.app.state.challenge_remediation_manager
+
+
 def _require_admin(request: Request, token: str | None) -> None:
     settings: Settings = request.app.state.settings
     if not token or token != settings.admin_token:
@@ -206,6 +210,18 @@ async def challenge_delivery_contract() -> dict[str, object]:
             },
             {
                 "method": "GET",
+                "path": "/api/challenge/remediations",
+                "authentication": "none",
+                "purpose": "read the controlled autonomous remediation audit trail",
+            },
+            {
+                "method": "GET",
+                "path": "/api/challenge/remediations/audit.csv",
+                "authentication": "none",
+                "purpose": "download reproducible remediation evidence as CSV",
+            },
+            {
+                "method": "GET",
                 "path": "/api/challenge/showcase",
                 "authentication": "none",
                 "purpose": "read the verified guided Kaiku demonstration",
@@ -235,7 +251,7 @@ async def challenge_delivery_contract() -> dict[str, object]:
         "limitations": {
             "official_ground_truth_used": False,
             "confidence_is_calibrated_probability": False,
-            "automatic_remediation": False,
+            "automatic_remediation": True,
             "gemini_required": False,
         },
     }
@@ -483,6 +499,44 @@ async def challenge_alert_cursor(request: Request) -> dict[str, object]:
 @router.get("/operations")
 async def challenge_operations(request: Request) -> dict[str, object]:
     return _service(request).store.operations_summary()
+
+
+@router.get("/remediations")
+async def challenge_remediations(request: Request) -> dict[str, object]:
+    settings: Settings = request.app.state.settings
+    records = _remediation_manager(request).list_records()
+    return {
+        "version": "challenge-controlled-remediation-v1",
+        "environment": "controlled_infrastructure_demo",
+        "enabled": settings.challenge_remediation_enabled,
+        "wait_seconds": settings.challenge_remediation_wait_seconds,
+        "verification_minutes": settings.challenge_remediation_verification_minutes,
+        "gemini_configured": bool(settings.gemini_api_key),
+        "mcp_execution_available": request.app.state.remediation_mcp_server is not None,
+        "records": records,
+    }
+
+
+@router.post("/remediations/process")
+async def process_challenge_remediations(
+    request: Request,
+    x_admin_token: str | None = Header(default=None),
+) -> dict[str, object]:
+    _require_admin(request, x_admin_token)
+    processed = await _remediation_manager(request).process_due_once()
+    return {"processed": processed, "records": _remediation_manager(request).list_records()}
+
+
+@router.get("/remediations/audit.csv")
+async def challenge_remediation_audit(request: Request) -> Response:
+    content = _remediation_manager(request).audit_csv()
+    return Response(
+        content=content,
+        media_type="text/csv",
+        headers={
+            "Content-Disposition": 'attachment; filename="challenge-remediation-audit.csv"'
+        },
+    )
 
 
 @router.get("/showcase")

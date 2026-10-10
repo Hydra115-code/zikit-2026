@@ -23,6 +23,8 @@ data/*
 !data/challenge-phase-9/**
 !data/challenge-phase-10/
 !data/challenge-phase-10/**
+!data/challenge-phase-4/
+!data/challenge-phase-4/**
 reports/
 tmp/
 

@@ -20,6 +20,7 @@ WORKDIR /app
 COPY pyproject.toml requirements.txt ./
 RUN python -c "import subprocess, sys, tomllib; data = tomllib.load(open('pyproject.toml', 'rb')); dependencies = data['project']['dependencies'] + data['project']['optional-dependencies']['ai']; subprocess.check_call([sys.executable, '-m', 'pip', 'install', '--no-cache-dir', *dependencies])"
 COPY app ./app
+COPY config ./config
 COPY models/isolation_forest.joblib models/isolation_forest.joblib
 COPY models/isolation_forest.joblib.metadata.json models/isolation_forest.joblib.metadata.json
 COPY models/isolation_forest.joblib.sha256 models/isolation_forest.joblib.sha256

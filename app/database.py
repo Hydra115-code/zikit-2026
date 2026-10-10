@@ -55,7 +55,7 @@ class EventRecord(Base):
     experiment_id: Mapped[str | None] = mapped_column(
         ForeignKey("experiments.id", ondelete="SET NULL"), index=True, nullable=True
     )
-    event_type: Mapped[str] = mapped_column(String(40), index=True)
+    event_type: Mapped[str] = mapped_column(String(64), index=True)
     process_id: Mapped[str] = mapped_column(String(36), index=True)
     timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(UTC))
     monotonic_seconds: Mapped[float] = mapped_column(Float)
@@ -133,6 +133,35 @@ class ChallengePredictionRecord(Base):
         ForeignKey("events.id", ondelete="CASCADE"), unique=True, index=True
     )
     created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=lambda: datetime.now(UTC), index=True
+    )
+
+
+class ChallengeRemediationRecord(Base):
+    __tablename__ = "challenge_remediations"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    incident_id: Mapped[str] = mapped_column(
+        ForeignKey("incidents.id", ondelete="CASCADE"), unique=True, index=True
+    )
+    alert_id: Mapped[int] = mapped_column(
+        ForeignKey("alerts.id", ondelete="CASCADE"), unique=True, index=True
+    )
+    status: Mapped[str] = mapped_column(String(40), index=True)
+    eligible_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    decided_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    action_started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    action_completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    verification_completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    runbook_id: Mapped[str | None] = mapped_column(String(140), nullable=True)
+    decision_provider: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    decision_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
+    failure_code: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    audit: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=lambda: datetime.now(UTC), index=True
+    )
+    updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=lambda: datetime.now(UTC), index=True
     )
 

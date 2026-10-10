@@ -13,6 +13,12 @@ from app.ai.mcp_transport import MCPBearerTokenMiddleware
 from app.ai.tools import SentinelToolRegistry
 from app.challenge.api import router as challenge_router
 from app.challenge.live_replay import ChallengeLiveReplayManager
+from app.challenge.remediation import ChallengeRemediationManager
+from app.challenge.remediation_catalog import load_remediation_catalog
+from app.challenge.remediation_mcp import (
+    ChallengeRemediationToolRegistry,
+    create_remediation_mcp_server,
+)
 from app.challenge.service import ChallengeReplayService
 from app.config import get_settings
 from app.core.service import SentinelService
@@ -42,6 +48,7 @@ def create_app(*, database_url: str | None = None, start_monitor: bool | None = 
         settings.challenge_model_path,
         settings.challenge_policy_path,
         require_all_tenants=settings.challenge_require_all_tenants,
+        critical_confidence_threshold=settings.challenge_critical_confidence_threshold,
     )
     challenge_live_replay_manager = ChallengeLiveReplayManager(
         challenge_replay_service
@@ -50,6 +57,14 @@ def create_app(*, database_url: str | None = None, start_monitor: bool | None = 
         simulator,
         sentinel.telemetry,
         settings.challenge_features_path,
+    )
+    remediation_catalog, remediation_catalog_sha256 = load_remediation_catalog(
+        settings.challenge_remediation_catalog_path
+    )
+    remediation_tool_registry = ChallengeRemediationToolRegistry(
+        remediation_catalog,
+        settings.challenge_features_path,
+        minute_seconds=settings.challenge_remediation_minute_seconds,
     )
     try:
         mcp_server = create_mcp_server(tool_registry)
@@ -60,6 +75,27 @@ def create_app(*, database_url: str | None = None, start_monitor: bool | None = 
         mcp_server.streamable_http_app()
         if mcp_server is not None and settings.mcp_http_enabled
         else None
+    )
+    try:
+        remediation_mcp_server = create_remediation_mcp_server(
+            remediation_tool_registry
+        )
+    except ImportError:
+        remediation_mcp_server = None
+        logger.warning(
+            "MCP SDK is not installed; challenge detection remains available and "
+            "autonomous remediation will escalate safely"
+        )
+    remediation_mcp_app = (
+        remediation_mcp_server.streamable_http_app()
+        if remediation_mcp_server is not None
+        and settings.challenge_remediation_enabled
+        else None
+    )
+    challenge_remediation_manager = ChallengeRemediationManager(
+        settings,
+        remediation_catalog,
+        remediation_catalog_sha256,
     )
 
     @asynccontextmanager
@@ -78,13 +114,19 @@ def create_app(*, database_url: str | None = None, start_monitor: bool | None = 
                 await stack.enter_async_context(
                     mcp_http_app.router.lifespan_context(mcp_http_app)
                 )
+            if remediation_mcp_app is not None:
+                await stack.enter_async_context(
+                    remediation_mcp_app.router.lifespan_context(remediation_mcp_app)
+                )
             try:
                 if start_monitor is not False:
                     await sentinel.start()
                     await resources.start()
+                await challenge_remediation_manager.start()
                 yield
             finally:
                 await app.state.challenge_live_replay_manager.shutdown()
+                await challenge_remediation_manager.stop()
                 await resources.stop()
                 await sentinel.stop()
 
@@ -95,6 +137,9 @@ def create_app(*, database_url: str | None = None, start_monitor: bool | None = 
     app.state.resource_monitor = resources
     app.state.tool_registry = tool_registry
     app.state.mcp_server = mcp_server
+    app.state.remediation_mcp_server = remediation_mcp_server
+    app.state.remediation_tool_registry = remediation_tool_registry
+    app.state.challenge_remediation_manager = challenge_remediation_manager
     app.state.monitor_requested = start_monitor is not False
     app.state.event_stream_capacity = EventStreamCapacity(
         settings.event_stream_max_connections
@@ -121,6 +166,15 @@ def create_app(*, database_url: str | None = None, start_monitor: bool | None = 
             "/mcp",
             MCPBearerTokenMiddleware(mcp_http_app, settings.mcp_read_token),
             name="mcp",
+        )
+    if remediation_mcp_app is not None:
+        app.mount(
+            "/mcp-execution",
+            MCPBearerTokenMiddleware(
+                remediation_mcp_app,
+                settings.mcp_execution_token,
+            ),
+            name="mcp-execution",
         )
 
     @app.post(

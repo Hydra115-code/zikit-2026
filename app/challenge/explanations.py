@@ -10,7 +10,13 @@ from app.challenge.persistence import (
     EVENT_CHALLENGE_ALERT_ACKNOWLEDGED,
 )
 from app.challenge.response import response_plan_for
-from app.database import ChallengePredictionRecord, EventRecord, IncidentRecord, session_factory
+from app.database import (
+    ChallengePredictionRecord,
+    ChallengeRemediationRecord,
+    EventRecord,
+    IncidentRecord,
+    session_factory,
+)
 
 
 _SIGNAL_LABELS = {
@@ -84,6 +90,15 @@ def _operator_response(events: list[EventRecord]) -> dict[str, Any]:
     }
 
 
+def _remediation(incident_id: str) -> ChallengeRemediationRecord | None:
+    with session_factory()() as session:
+        return session.scalar(
+            select(ChallengeRemediationRecord).where(
+                ChallengeRemediationRecord.incident_id == incident_id
+            )
+        )
+
+
 def _load_by_incident(
     incident_id: str,
 ) -> tuple[IncidentRecord, ChallengePredictionRecord, list[EventRecord]]:
@@ -122,19 +137,49 @@ def build_challenge_incident_explanation(incident_id: str) -> dict[str, Any]:
         prediction.alert_type,
         prediction.suspected_incident_type,
     )
+    remediation = _remediation(incident_id)
     decision_detail = (
         f"La política emitió una alerta con confianza {prediction.risk_score:.1%} y "
         f"clasificación probable “{incident_type}”; no demuestra una causa raíz."
     )
-    action_detail = (
-        "No se ejecutó una mitigación. La acción recomendada es: "
-        f"{prediction.recommended_action}"
-    )
-    verification_detail = (
-        "No existe verificación posterior de una acción porque este replay evalúa "
-        "detección temprana, no infraestructura real."
-    )
+    action_executed = remediation is not None and remediation.action_completed_at is not None
+    if remediation is None:
+        action_status = "not_started"
+        action_detail = (
+            "La alerta espera respuesta durante el plazo configurado. Si permanece abierta, "
+            "Gemini solo podrá seleccionar un runbook preautorizado y reversible."
+        )
+        verification_status = "pending"
+        verification_detail = "La verificación comenzará únicamente después de una acción MCP."
+    elif remediation.status == "recovered":
+        action_status = "completed"
+        action_detail = (
+            f"MCP ejecutó {remediation.runbook_id} en infraestructura controlada."
+        )
+        verification_status = "verified"
+        verification_detail = (
+            "Sentinel verificó la recuperación durante la ventana configurada de la "
+            "infraestructura controlada."
+        )
+    elif remediation.status == "escalated":
+        action_status = "failed" if action_executed else "blocked"
+        action_detail = (
+            "La remediación se escaló al operador"
+            + (f" después de ejecutar {remediation.runbook_id}." if action_executed else " sin ejecutar cambios.")
+        )
+        verification_status = "failed" if action_executed else "pending"
+        verification_detail = (
+            "La verificación no superó el contrato y se intentó rollback."
+            if action_executed
+            else "No hubo acción que verificar."
+        )
+    else:
+        action_status = "running"
+        action_detail = f"Remediación controlada en estado {remediation.status}."
+        verification_status = "pending"
+        verification_detail = "La ventana de verificación todavía no concluye."
     operator_response = _operator_response(events)
+    operator_response["mitigation_executed"] = action_executed
     return {
         "version": "2",
         "source": "deterministic-local",
@@ -164,19 +209,20 @@ def build_challenge_incident_explanation(incident_id: str) -> dict[str, Any]:
         },
         "action": {
             "title": "Acción recomendada",
-            "status": "not_started",
+            "status": action_status,
             "detail": action_detail,
-            "runbook": response_plan["runbook_id"],
+            "runbook": remediation.runbook_id if remediation and remediation.runbook_id else response_plan["runbook_id"],
             "response_plan": response_plan,
-            "execution_authorized": False,
-            "approval_required": True,
-            "started_at": None,
-            "completed_at": None,
+            "execution_authorized": bool(remediation and remediation.runbook_id),
+            "approval_required": False,
+            "started_at": remediation.action_started_at.isoformat() if remediation and remediation.action_started_at else None,
+            "completed_at": remediation.action_completed_at.isoformat() if remediation and remediation.action_completed_at else None,
+            "environment": "controlled_infrastructure_demo",
         },
         "operator_response": operator_response,
         "verification": {
             "title": "Verificación posterior",
-            "status": "pending",
+            "status": verification_status,
             "detail": verification_detail,
             "metrics": {},
             "contract": response_plan["verification"],
@@ -207,7 +253,7 @@ def build_challenge_incident_explanation(incident_id: str) -> dict[str, Any]:
         "limitations": [
             "Datos sintéticos oficiales reproducidos minuto a minuto; no son máquinas remotas reales.",
             "La explicación traduce evidencia persistida y no modifica el score del modelo.",
-            "La causa raíz, el impacto evitado y la recuperación no están demostrados por este replay.",
+            "La acción y recuperación pertenecen a infraestructura controlada; no demuestran impacto evitado en producción.",
         ],
         "provenance": {
             "source": CHALLENGE_SOURCE,

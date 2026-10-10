@@ -99,6 +99,20 @@ class Settings(BaseSettings):
     )
     challenge_runtime_path: Path | None = None
     challenge_require_all_tenants: bool = False
+    challenge_critical_confidence_threshold: float = Field(default=0.60, ge=0, le=1)
+    challenge_remediation_enabled: bool = True
+    challenge_remediation_wait_seconds: float = Field(default=300, ge=0, le=86_400)
+    challenge_remediation_poll_seconds: float = Field(default=1, ge=0.1, le=60)
+    challenge_remediation_verification_minutes: int = Field(default=10, ge=1, le=60)
+    challenge_remediation_minute_seconds: float = Field(default=1, ge=0.05, le=60)
+    challenge_remediation_catalog_path: Path = Path(
+        "config/challenge_remediation_runbooks.json"
+    )
+    challenge_remediation_audit_path: Path = Path(
+        "data/challenge-phase-4/remediation-audit.csv"
+    )
+    mcp_execution_url: str = "http://127.0.0.1:8000/mcp-execution/"
+    mcp_execution_token: str | None = Field(default=None, min_length=12)
 
     @field_validator("cors_origins", mode="before")
     @classmethod
@@ -117,6 +131,7 @@ class Settings(BaseSettings):
         "backup_provider_control_url",
         "provider_control_token",
         "mcp_read_token",
+        "mcp_execution_token",
         mode="before",
     )
     @classmethod
@@ -190,6 +205,19 @@ class Settings(BaseSettings):
                 "MCP_INTERNAL_URL must be an absolute HTTP(S) URL without credentials, "
                 "query or fragment"
             )
+        mcp_execution_url = urlsplit(self.mcp_execution_url)
+        if (
+            mcp_execution_url.scheme not in {"http", "https"}
+            or not mcp_execution_url.netloc
+            or mcp_execution_url.username
+            or mcp_execution_url.password
+            or mcp_execution_url.query
+            or mcp_execution_url.fragment
+        ):
+            raise ValueError(
+                "MCP_EXECUTION_URL must be an absolute HTTP(S) URL without credentials, "
+                "query or fragment"
+            )
         for value in [self.primary_provider_control_url, self.backup_provider_control_url]:
             if value is None:
                 continue
@@ -223,6 +251,12 @@ class Settings(BaseSettings):
         ):
             problems.append(
                 "MCP_READ_TOKEN must contain at least 32 characters when MCP HTTP or the evidence API is enabled in production"
+            )
+        if self.challenge_remediation_enabled and (
+            self.mcp_execution_token is None or len(self.mcp_execution_token) < 32
+        ):
+            problems.append(
+                "MCP_EXECUTION_TOKEN must contain at least 32 characters when autonomous remediation is enabled in production"
             )
         if "*" in self.cors_origins or any("localhost" in origin for origin in self.cors_origins):
             problems.append("CORS_ORIGINS must contain only explicit production origins")

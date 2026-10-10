@@ -13,7 +13,7 @@ from app.challenge.business_impact import kaiku_potential_impact
 from app.challenge.explanations import build_challenge_incident_explanation
 from app.challenge.ingestion import IngestionError, assert_allowed_path
 from app.challenge.training import discover_feature_files
-from app.database import ChallengePredictionRecord, session_factory
+from app.database import ChallengePredictionRecord, ChallengeRemediationRecord, session_factory
 
 
 METRICS = ("cpu", "ram", "disco", "latencia_ms", "errores")
@@ -272,13 +272,20 @@ class KaikuEvidenceReader:
     def allowed_runbooks(self, incident_id: str) -> dict[str, Any]:
         explanation = build_challenge_incident_explanation(incident_id)
         plan = explanation["action"]["response_plan"]
+        with session_factory()() as session:
+            remediation = session.scalar(
+                select(ChallengeRemediationRecord).where(
+                    ChallengeRemediationRecord.incident_id == incident_id
+                )
+            )
         return {
             "tenant": "kaiku",
             "incident_id": incident_id,
             "runbooks": [plan],
             "recommended_runbook": plan["runbook_id"],
-            "execution_authorized": False,
-            "approval_required": True,
+            "execution_authorized": bool(remediation and remediation.runbook_id),
+            "approval_required": False,
+            "autonomous_policy": "preauthorized_reversible_only",
             "tool_is_read_only": True,
         }
 
@@ -290,7 +297,7 @@ class KaikuEvidenceReader:
             "verification": explanation["verification"],
             "operator_response": explanation["operator_response"],
             "timing": explanation["timing"],
-            "mitigation_executed": False,
-            "recovery_verified": False,
+            "mitigation_executed": explanation["operator_response"]["mitigation_executed"],
+            "recovery_verified": explanation["verification"]["status"] == "verified",
             "tool_is_read_only": True,
         }

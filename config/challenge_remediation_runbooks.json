@@ -1,0 +1,70 @@
+{
+  "version": "challenge-controlled-remediation-v1",
+  "environment": "controlled_infrastructure_demo",
+  "runbooks": [
+    {
+      "id": "kaiku.controlled.checkout-concurrency-guard.v1",
+      "title": "Activar límite reversible de concurrencia de checkout",
+      "incident_types": [
+        "checkout_degradation",
+        "database_connection_pressure",
+        "application_errors"
+      ],
+      "action": "enable_checkout_concurrency_guard",
+      "rollback_action": "disable_checkout_concurrency_guard",
+      "reversible": true,
+      "preauthorized": true,
+      "effects": {
+        "cpu": 0.82,
+        "latencia_ms": 0.60,
+        "errores": 0.30
+      },
+      "verification": [
+        {"signal": "latencia_ms", "maximum_ratio": 0.80},
+        {"signal": "errores", "maximum_ratio": 0.60}
+      ]
+    },
+    {
+      "id": "kaiku.controlled.noncritical-workers-pause.v1",
+      "title": "Pausar trabajadores no críticos de forma reversible",
+      "incident_types": [
+        "database_connection_pressure",
+        "database_contention",
+        "cpu_saturation",
+        "memory_pressure",
+        "application_errors"
+      ],
+      "action": "pause_noncritical_workers",
+      "rollback_action": "resume_noncritical_workers",
+      "reversible": true,
+      "preauthorized": true,
+      "effects": {
+        "cpu": 0.58,
+        "ram": 0.78,
+        "latencia_ms": 0.72,
+        "errores": 0.50
+      },
+      "verification": [
+        {"signal": "cpu", "maximum_ratio": 0.75},
+        {"signal": "latencia_ms", "maximum_ratio": 0.85}
+      ]
+    },
+    {
+      "id": "kaiku.controlled.temporary-storage-cleanup.v1",
+      "title": "Liberar almacenamiento temporal autorizado",
+      "incident_types": ["storage_capacity_risk"],
+      "action": "archive_expired_temporary_artifacts",
+      "rollback_action": "restore_archived_temporary_artifacts",
+      "reversible": true,
+      "preauthorized": true,
+      "effects": {
+        "disco": 0.88,
+        "errores": 0.70
+      },
+      "verification": [
+        {"signal": "disco", "maximum_ratio": 0.95},
+        {"signal": "errores", "maximum_ratio": 0.85}
+      ]
+    }
+  ]
+}

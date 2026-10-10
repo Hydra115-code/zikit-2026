@@ -12,9 +12,11 @@ from sqlalchemy.exc import IntegrityError
 
 from app.challenge.policy import POLICY_VERSION
 from app.challenge.response import response_plan_for
+from app.challenge.remediation_events import REMEDIATION_EVENT_TYPES
 from app.database import (
     AlertRecord,
     ChallengePredictionRecord,
+    ChallengeRemediationRecord,
     EventRecord,
     IncidentRecord,
     session_factory,
@@ -29,6 +31,7 @@ CHALLENGE_EVENT_TYPES = (
     EVENT_CHALLENGE_INCIDENT_PREDICTED,
     EVENT_CHALLENGE_DATA_QUALITY_ALERT,
     EVENT_CHALLENGE_ALERT_ACKNOWLEDGED,
+    *REMEDIATION_EVENT_TYPES,
 )
 CHALLENGE_SOURCE = "zikit_official_synthetic_dataset"
 
@@ -100,6 +103,15 @@ def record_challenge_acknowledgement(
     if prediction is None:
         return None
     latency_seconds = _seconds_between(acknowledged_at, prediction.created_at)
+    remediation = (
+        session.scalar(
+            select(ChallengeRemediationRecord).where(
+                ChallengeRemediationRecord.incident_id == prediction.incident_id
+            )
+        )
+        if prediction.incident_id is not None
+        else None
+    )
     trace = {
         "source": CHALLENGE_SOURCE,
         "run_id": prediction.run_id,
@@ -111,7 +123,9 @@ def record_challenge_acknowledgement(
         "acknowledged_at": _aware_utc(acknowledged_at).isoformat(),
         "delivery_to_acknowledgement_seconds": latency_seconds,
         "operator_action": "alert_acknowledged",
-        "mitigation_executed": False,
+        "mitigation_executed": (
+            remediation is not None and remediation.action_completed_at is not None
+        ),
     }
     if create_event:
         source_event = session.get(EventRecord, prediction.event_id)
@@ -171,6 +185,9 @@ def acknowledge_alert_once(
 
 class ChallengePredictionRepository:
     """Durable, idempotent bridge from causal predictions to the operations feed."""
+
+    def __init__(self, critical_confidence_threshold: float = 0.60) -> None:
+        self.critical_confidence_threshold = critical_confidence_threshold
 
     @staticmethod
     def _payload(row: pd.Series) -> dict[str, Any]:
@@ -247,8 +264,8 @@ class ChallengePredictionRepository:
             "latest_id": int(latest_id or 0),
         }
 
-    @staticmethod
     def _insert(
+        self,
         session: Any,
         payload: dict[str, Any],
         *,
@@ -270,7 +287,11 @@ class ChallengePredictionRepository:
 
         if payload["alert_type"] == "incident_risk":
             incident_id = _incident_id(payload)
-            severity = "critical" if payload["confidence"] >= 0.85 else "warning"
+            severity = (
+                "critical"
+                if payload["confidence"] >= self.critical_confidence_threshold
+                else "warning"
+            )
             incident = IncidentRecord(
                 id=incident_id,
                 service=f"challenge:{payload['tenant']}",
@@ -352,6 +373,7 @@ class ChallengePredictionRepository:
         prediction: ChallengePredictionRecord,
         event: EventRecord,
         alert: AlertRecord,
+        remediation: ChallengeRemediationRecord | None = None,
     ) -> dict[str, Any]:
         latency = max(
             0.0,
@@ -386,7 +408,36 @@ class ChallengePredictionRepository:
             "recommended_action": prediction.recommended_action,
             "response_plan": response_plan,
             "runbook_id": response_plan["runbook_id"],
-            "action_executed": False,
+            "action_executed": remediation is not None and remediation.action_completed_at is not None,
+            "remediation": (
+                None
+                if remediation is None
+                else {
+                    "id": remediation.id,
+                    "status": remediation.status,
+                    "eligible_at": _aware_utc(remediation.eligible_at).isoformat(),
+                    "runbook_id": remediation.runbook_id,
+                    "decision_provider": remediation.decision_provider,
+                    "decision_reason": remediation.decision_reason,
+                    "failure_code": remediation.failure_code,
+                    "action_started_at": (
+                        _aware_utc(remediation.action_started_at).isoformat()
+                        if remediation.action_started_at is not None
+                        else None
+                    ),
+                    "action_completed_at": (
+                        _aware_utc(remediation.action_completed_at).isoformat()
+                        if remediation.action_completed_at is not None
+                        else None
+                    ),
+                    "verification_completed_at": (
+                        _aware_utc(remediation.verification_completed_at).isoformat()
+                        if remediation.verification_completed_at is not None
+                        else None
+                    ),
+                    "audit": remediation.audit,
+                }
+            ),
             "delivered_at": _aware_utc(prediction.created_at).isoformat(),
             "priority": alert.priority,
             "state": alert.state,
@@ -417,9 +468,19 @@ class ChallengePredictionRepository:
         alert_type: str | None = "incident_risk",
     ) -> list[dict[str, Any]]:
         query = (
-            select(ChallengePredictionRecord, EventRecord, AlertRecord)
+            select(
+                ChallengePredictionRecord,
+                EventRecord,
+                AlertRecord,
+                ChallengeRemediationRecord,
+            )
             .join(EventRecord, EventRecord.id == ChallengePredictionRecord.event_id)
             .join(AlertRecord, AlertRecord.event_id == EventRecord.id)
+            .outerjoin(
+                ChallengeRemediationRecord,
+                ChallengeRemediationRecord.incident_id
+                == ChallengePredictionRecord.incident_id,
+            )
             .where(EventRecord.id > after_id)
         )
         if run_id is not None:
@@ -435,9 +496,19 @@ class ChallengePredictionRepository:
     def get_by_event_id(self, event_id: int) -> dict[str, Any] | None:
         with session_factory()() as session:
             row = session.execute(
-                select(ChallengePredictionRecord, EventRecord, AlertRecord)
+                select(
+                    ChallengePredictionRecord,
+                    EventRecord,
+                    AlertRecord,
+                    ChallengeRemediationRecord,
+                )
                 .join(EventRecord, EventRecord.id == ChallengePredictionRecord.event_id)
                 .join(AlertRecord, AlertRecord.event_id == EventRecord.id)
+                .outerjoin(
+                    ChallengeRemediationRecord,
+                    ChallengeRemediationRecord.incident_id
+                    == ChallengePredictionRecord.incident_id,
+                )
                 .where(EventRecord.id == event_id)
             ).one_or_none()
             return self._serialize(*row) if row is not None else None
@@ -462,6 +533,30 @@ class ChallengePredictionRepository:
             )
             updates: list[dict[str, Any]] = []
             for event in events:
+                if event.event_type in REMEDIATION_EVENT_TYPES:
+                    details = event.details if isinstance(event.details, dict) else {}
+                    updates.append(
+                        {
+                            "id": event.id,
+                            "event_id": event.id,
+                            "outbox_alert_id": details.get("alert_id"),
+                            "incident_id": event.incident_id,
+                            "timestamp": event.timestamp.isoformat(),
+                            "alert_type": "autonomous_remediation",
+                            "state": details.get("status"),
+                            "action_executed": event.event_type
+                            in {
+                                "CHALLENGE_REMEDIATION_ACTION_COMPLETED",
+                                "CHALLENGE_REMEDIATION_VERIFICATION_STARTED",
+                                "CHALLENGE_REMEDIATION_RECOVERY_VERIFIED",
+                                "CHALLENGE_REMEDIATION_ROLLED_BACK",
+                            },
+                            "remediation": details,
+                            "clock_domain": "operator_wall_clock",
+                            "stream_event": "challenge_remediation_update",
+                        }
+                    )
+                    continue
                 if event.event_type == EVENT_CHALLENGE_ALERT_ACKNOWLEDGED:
                     details = event.details if isinstance(event.details, dict) else {}
                     updates.append(
@@ -475,7 +570,7 @@ class ChallengePredictionRepository:
                             "timestamp": event.timestamp.isoformat(),
                             "alert_type": "operator_acknowledgement",
                             "state": "acknowledged",
-                            "action_executed": False,
+                            "action_executed": bool(details.get("mitigation_executed")),
                             "delivery_to_acknowledgement_seconds": details.get(
                                 "delivery_to_acknowledgement_seconds"
                             ),
@@ -544,6 +639,9 @@ class ChallengePredictionRepository:
                         == EVENT_CHALLENGE_ALERT_ACKNOWLEDGED
                     )
                 )
+            )
+            remediation_rows = list(
+                session.scalars(select(ChallengeRemediationRecord))
             )
 
         def distribution(values: list[float]) -> dict[str, float | int | None]:
@@ -621,6 +719,17 @@ class ChallengePredictionRepository:
                 "open": sum(alert.state == "open" for _, alert in rows),
                 "acknowledged": acknowledged_count,
             },
+            "remediations": {
+                "total": len(remediation_rows),
+                "recovered": sum(item.status == "recovered" for item in remediation_rows),
+                "reverted": sum(item.status == "reverted" for item in remediation_rows),
+                "escalated": sum(item.status == "escalated" for item in remediation_rows),
+                "active": sum(
+                    item.status
+                    in {"deciding", "decision_ready", "executing", "verifying"}
+                    for item in remediation_rows
+                ),
+            },
             "timing": {
                 "signal_to_detection_seconds": {
                     "clock_domain": "synthetic_replay_time",
@@ -639,8 +748,13 @@ class ChallengePredictionRepository:
             "cursor": self.cursor(),
             "integrity": {"passed": all(integrity.values()), **integrity},
             "limitations": {
-                "mitigation_executed": False,
-                "recovery_verified": False,
+                "mitigation_executed": any(
+                    item.action_completed_at is not None for item in remediation_rows
+                ),
+                "recovery_verified": any(
+                    item.status == "recovered" for item in remediation_rows
+                ),
                 "remote_infrastructure_observed": False,
+                "controlled_infrastructure_only": True,
             },
         }
